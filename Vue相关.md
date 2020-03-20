@@ -16,7 +16,7 @@
 
 ### 父子组件之间的通信：
 
-	#### 		1.prop 和 events:
+#### 1.prop 和 events:
 
 ​			[Vue组件基础]([https://cn.vuejs.org/v2/guide/components.html#%E7%9B%91%E5%90%AC%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BA%8B%E4%BB%B6](https://cn.vuejs.org/v2/guide/components.html#监听子组件事件))
 
@@ -28,9 +28,7 @@
 
 
 
-
-
-	#### 		2.v-model:
+#### 		2.v-model:
 
 ​			 [v-model的基础用法](https://cn.vuejs.org/v2/guide/forms.html#基础用法)
 
@@ -65,7 +63,7 @@
 
 
 
-	#### 		4.ref:
+#### 4.ref:
 
 ​			ref如同组件的一个`ID`  父组件使用子组件时标注`ref=‘refID’`，在父组件中`$this.refs.refID`就可以获取这个子组件上的数据、方法
 
@@ -77,7 +75,7 @@
 
 
 
-	#### 		5.$parent、$children
+#### 	5.$parent、$children
 
 ​				**$parent:**子组件的直接父组件
 
@@ -370,6 +368,10 @@ v-show只是进行css的变化。初始化开销大
 
 
 
+
+
+### V-Router
+
 #### v-router导航守卫
 
 [vue-router导航守卫，不懂的来](https://zhuanlan.zhihu.com/p/54112006)
@@ -394,7 +396,43 @@ v-show只是进行css的变化。初始化开销大
 
 `beforeResolve`针对异步组件，所以在before中排最后。`afterEach`全局后置守卫，所以在`beforeResolve`之后。
 
-​	
+​	**next:**但凡参数中有`next`就一定要调用`next()`，否则就会卡在现阶段。
+
+​	1.中断导航，next(false)
+
+​	2.`next('/')`与`next({path,'/'})`中断导航并且跳到下一个导航。
+
+​	3.在`beforeRouteEnter`钩子中`next((vm)=>{})` 在组件mounted之后执行，并且能获得组件实例`vm`
+
+​	4.next(error): (v2.4.0+) 如果传入 `next` 的参数是一个 `Error` 实例，则导航会被终止且该错误会被传递给 `router.onError()` 注册过的回调。
+
+#### vue-router hash模式和history模式有什么区别
+
+[vue-router的两种模式的区别](https://juejin.im/post/5a61908c6fb9a01c9064f20a)
+
+`v-router`选用`hash`与`history`的原因：Vue-Router构建单页面应用，路由不受后端管控，不向后端发送请求，而是前端根据url匹配对应的组件
+
+**hash:**`#`为标识 ,hash虽然包含在url中但是不包括在HTTP请求中       
+
+​			例如url：`http://www.abc.com/#/hello`  hash值为`#/hello` 
+
+**history:**[History_API](https://developer.mozilla.org/zh-CN/docs/Web/API/History_API)
+
+利用HTML5中history新增的api，`pushState()`、`replaceState()`
+
+改变浏览器历史的栈，但是并不会触发浏览器的加载。 浏览器历史栈就是点击浏览器前进、后退的 `<-`、`->`
+
+**注意：history模式下404的问题**
+
+如果后端没有对前端 的做到全覆盖就会出现404,所以后端设置，如果匹配不到任何静态资源则跳转到同一个`index.html页面`
+
+#### Vue-Router实现
+
+[vue-router原理剖析](https://juejin.im/post/5b08c9ccf265da0dd527d98d)
+
+[【源码拾遗】从vue-router看前端路由的两种实现](https://zhuanlan.zhihu.com/p/27588422)
+
+
 
 ------
 
